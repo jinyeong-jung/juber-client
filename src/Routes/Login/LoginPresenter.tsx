@@ -48,7 +48,7 @@ const Grey = styled.span`
   margin-left: 10px;
 `;
 const SocialLogin = styled.div`
-  border-top: 1px solid ${props => props.theme.greyColor};
+  border-top: 0.5px solid ${props => props.theme.greyColor};
   padding: 30px 20px;
 `;
 const SocialLink = styled.span`
