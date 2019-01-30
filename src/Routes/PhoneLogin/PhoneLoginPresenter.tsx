@@ -23,15 +23,15 @@ const Title = styled.h2`
 
 const CountrySelect = styled.select`
   font-size: 20px;
+  color: "#2c3e50";
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   background-color: white;
   border: 0;
   font-family: "Maven Pro";
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   width: 90%;
-  cursor: pointer;
 `;
 
 const CountryOption = styled.option``;
@@ -42,9 +42,9 @@ const Button = styled.button`
   box-shadow: 0 18px 35px rgba(50, 50, 93, 0.1), 0 8px 15px rgba(0, 0, 0, 0.07);
   background-color: black;
   color: white;
-  border: none;
   padding: 20px;
   border-radius: 50%;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,22 +54,45 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const PhoneLoginPresenter = () => (
+interface IProps {
+  countryCode: string;
+  phoneNumber: string;
+  onInputChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+}
+
+const PhoneLoginPresenter: React.SFC<IProps> = ({
+  countryCode,
+  phoneNumber,
+  onInputChange,
+  onSubmit
+}) => (
   <Container>
     <Helmet>
       <title>Phone Login | Juber</title>
     </Helmet>
     <BackArrowExtended backTo={"/"} />
     <Title>Enter your mobile number</Title>
-    <CountrySelect>
+    <CountrySelect
+      value={countryCode}
+      name={"countryCode"}
+      onChange={onInputChange}
+    >
       {countries.map((country, index) => (
-        <CountryOption key={index}>
-          {country.flag} | {country.name} ({country.dial_code})
+        <CountryOption key={index} value={country.dial_code}>
+          {country.flag} {country.name} ({country.dial_code})
         </CountryOption>
       ))}
     </CountrySelect>
-    <Form>
-      <Input placeholder="010 1234 5678" />
+    <Form onSubmit={onSubmit}>
+      <Input
+        placeholder={"012 345 6789"}
+        value={phoneNumber}
+        name={"phoneNumber"}
+        onChange={onInputChange}
+      />
       <Button>
         <svg
           xmlns="http://www.w3.org/2000/svg"
