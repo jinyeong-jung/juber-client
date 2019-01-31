@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import {
   StartPhoneVerification,
   StartPhoneVerificationVariables
-} from "src/types/api";
+} from "../../types/api";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
 import { PHONE_SIGN_IN } from "./PhoneQueries.queries";
 
@@ -34,11 +34,22 @@ class PhoneLoginContainer extends React.Component<
     return (
       <PhoneSignInMutation
         mutation={PHONE_SIGN_IN}
-        variables={{ phoneNumber: `${countryCode}${phoneNumber}` }}
+        variables={{
+          phoneNumber: `${countryCode}${phoneNumber}`
+        }}
         onCompleted={data => {
           const { StartPhoneVerification } = data;
+          const phone = `${countryCode}${phoneNumber}`;
           if (StartPhoneVerification.ok) {
-            return;
+            toast.success("SMS Sent! Please Verify Your Phone.");
+            setTimeout(() => {
+              history.push({
+                pathname: "/verify-phone",
+                state: {
+                  phone
+                }
+              });
+            }, 1500);
           } else {
             toast.error(StartPhoneVerification.error);
           }
@@ -50,11 +61,7 @@ class PhoneLoginContainer extends React.Component<
             const phone = `${countryCode}${phoneNumber}`;
             const isValid = /([+]?\d{1,4}?)?(\d{3,4}[.-]?){2}\d{4}/.test(phone);
             if (isValid) {
-              // mutation();
-              history.push({
-                pathname: "/verify-phone",
-                state: { phone }
-              });
+              mutation();
             } else {
               toast.error("Please write a valid phone number");
             }
@@ -72,7 +79,6 @@ class PhoneLoginContainer extends React.Component<
       </PhoneSignInMutation>
     );
   }
-
   public onInputChange: React.ChangeEventHandler<
     HTMLInputElement | HTMLSelectElement
   > = event => {
@@ -84,5 +90,4 @@ class PhoneLoginContainer extends React.Component<
     } as any);
   };
 }
-
 export default PhoneLoginContainer;

@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "../../typed-components";
-
 const Container = styled.input`
   width: 100%;
   background-color: black;
@@ -20,7 +19,6 @@ const Container = styled.input`
     opacity: 0.8;
   }
 `;
-
 interface IProps {
   value: string;
   onClick: any;
@@ -28,7 +26,7 @@ interface IProps {
 }
 
 const Button: React.SFC<IProps> = ({ value, onClick, disabled = false }) => (
-  <Container value={value} onClick={onClick} disabled={false} />
+  <Container value={value} disabled={false} onClick={onClick} type={"submit"} />
 );
 
 export default Button;
