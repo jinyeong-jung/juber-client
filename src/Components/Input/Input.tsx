@@ -3,7 +3,7 @@ import styled from "../../typed-components";
 
 const Container = styled.input`
   border: none;
-  border-bottom: 2px solid ${props => props.theme.greyColor};
+  border-bottom: 1px solid ${props => props.theme.greyColor};
   font-size: 20px;
   width: 100%;
   padding-bottom: 10px;
@@ -29,6 +29,7 @@ interface IProps {
   value: string;
   name?: string;
   onChange: any;
+  className?: string;
 }
 
 const Input: React.SFC<IProps> = ({
@@ -37,7 +38,8 @@ const Input: React.SFC<IProps> = ({
   required = true,
   value,
   name = "",
-  onChange
+  onChange,
+  className
 }) => (
   <Container
     onChange={onChange}
@@ -46,6 +48,7 @@ const Input: React.SFC<IProps> = ({
     required={required}
     value={value}
     placeholder={placeholder}
+    className={className}
   />
 );
 

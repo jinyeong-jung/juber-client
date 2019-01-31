@@ -29,6 +29,7 @@ class PhoneLoginContainer extends React.Component<
   };
 
   public render() {
+    const { history } = this.props;
     const { countryCode, phoneNumber } = this.state;
     return (
       <PhoneSignInMutation
@@ -46,11 +47,14 @@ class PhoneLoginContainer extends React.Component<
         {(mutation, { loading }) => {
           const onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
             event.preventDefault();
-            const isValid = /([+]?\d{1,4}?)?(\d{3,4}[.-]?){2}\d{4}/.test(
-              `${countryCode}${phoneNumber}`
-            );
+            const phone = `${countryCode}${phoneNumber}`;
+            const isValid = /([+]?\d{1,4}?)?(\d{3,4}[.-]?){2}\d{4}/.test(phone);
             if (isValid) {
-              mutation();
+              // mutation();
+              history.push({
+                pathname: "/verify-phone",
+                state: { phone }
+              });
             } else {
               toast.error("Please write a valid phone number");
             }
