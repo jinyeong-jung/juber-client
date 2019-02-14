@@ -6,9 +6,9 @@ Client for the (J)Uber clone project made with ReactJS, Apollo, and Typescript.
 
 ### Logged Out:
 
-- [ ] Home
-- [ ] Phone Login
-- [ ] Verify Phone Number
+- [x] Home
+- [x] Phone Login
+- [x] Verify Phone Number
 - [ ] Social Login
 
 ### Logged In:
