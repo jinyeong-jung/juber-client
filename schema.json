@@ -2487,7 +2487,7 @@
                 "defaultValue": null
               },
               {
-                "name": "profilePhote",
+                "name": "profilePhoto",
                 "description": "",
                 "type": {
                   "kind": "SCALAR",
