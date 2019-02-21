@@ -3,7 +3,8 @@ import { MutationFn } from "react-apollo";
 import Helmet from "react-helmet";
 import { Link } from "react-router-dom";
 import Header from "src/Components/Header";
-import { userProfile } from "src/types/api";
+import Place from "src/Components/Place";
+import { getPlaces, userProfile } from "src/types/api";
 import styled from "../../typed-components";
 
 const Container = styled.div`
@@ -41,16 +42,26 @@ const FakeLink = styled.span`
   cursor: pointer;
 `;
 
+const SLink = styled(Link)`
+  display: block;
+  text-decoration: underline;
+  margin: 20px 0px;
+`;
+
 interface IProps {
   logUserOut: MutationFn;
   userData?: userProfile;
+  placesData?: getPlaces;
   userDataLoading: boolean;
+  placesLoading: boolean;
 }
 
 const SettingsPresenter: React.SFC<IProps> = ({
   logUserOut,
   userData: { GetMyProfile: { user = null } = {} } = {},
-  userDataLoading
+  placesData: { GetMyPlaces: { places = null } = {} } = {},
+  userDataLoading,
+  placesLoading
 }) => (
   <React.Fragment>
     <Helmet>
@@ -69,6 +80,17 @@ const SettingsPresenter: React.SFC<IProps> = ({
           </React.Fragment>
         )}
       </GridLink>
+      {!placesLoading &&
+        places &&
+        places.map(place => (
+          <Place
+            key={place!.id}
+            name={place!.name}
+            address={place!.address}
+            isFav={place!.isFav}
+          />
+        ))}
+      <SLink to={"/places"}>Go to Places</SLink>
       <FakeLink onClick={logUserOut}>Log Out</FakeLink>
     </Container>
   </React.Fragment>
