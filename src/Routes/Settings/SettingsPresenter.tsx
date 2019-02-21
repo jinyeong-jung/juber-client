@@ -3,6 +3,7 @@ import { MutationFn } from "react-apollo";
 import Helmet from "react-helmet";
 import { Link } from "react-router-dom";
 import Header from "src/Components/Header";
+import { userProfile } from "src/types/api";
 import styled from "../../typed-components";
 
 const Container = styled.div`
@@ -42,9 +43,15 @@ const FakeLink = styled.span`
 
 interface IProps {
   logUserOut: MutationFn;
+  userData?: userProfile;
+  userDataLoading: boolean;
 }
 
-const SettingsPresenter: React.SFC<IProps> = ({ logUserOut }) => (
+const SettingsPresenter: React.SFC<IProps> = ({
+  logUserOut,
+  userData: { GetMyProfile: { user = null } = {} } = {},
+  userDataLoading
+}) => (
   <React.Fragment>
     <Helmet>
       <title>Settings | Juber</title>
@@ -52,17 +59,15 @@ const SettingsPresenter: React.SFC<IProps> = ({ logUserOut }) => (
     <Header title={"Account Settings"} backTo={"/"} />
     <Container>
       <GridLink to={"/edit-account"}>
-        <React.Fragment>
-          <Image
-            src={
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8WXtgkHOd-jo7S7n036wB18OVqNWDBxSWF6bfrdo15-P7tSFb"
-            }
-          />
-          <Keys>
-            <Key>Jinyeong</Key>
-            <Key>jinyeong32@gmail.com</Key>
-          </Keys>
-        </React.Fragment>
+        {!userDataLoading && user && (
+          <React.Fragment>
+            <Image src={user.profilePhoto} />
+            <Keys>
+              <Key>{user.fullName}</Key>
+              <Key>{user.email}</Key>
+            </Keys>
+          </React.Fragment>
+        )}
       </GridLink>
       <FakeLink onClick={logUserOut}>Log Out</FakeLink>
     </Container>
