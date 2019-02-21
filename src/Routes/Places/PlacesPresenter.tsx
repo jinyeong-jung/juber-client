@@ -42,6 +42,7 @@ const PlacesPresenter: React.SFC<IProps> = ({
         places.map(place => (
           <Place
             key={place!.id}
+            id={place!.id}
             name={place!.name}
             address={place!.address}
             isFav={place!.isFav}

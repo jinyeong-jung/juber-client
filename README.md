@@ -18,6 +18,6 @@ Client for the (J)Uber clone project made with ReactJS, Apollo, and Typescript.
 - [x] Edit Account
 - [x] Settings
 - [x] Places
-- [ ] Add Place
+- [x] Add Place
 - [ ] Find Address
 - [ ] Challenge: Ride History
