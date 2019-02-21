@@ -10,6 +10,11 @@ const Container = styled.div`
   padding: 0 40px;
 `;
 
+const NoPlace = styled.div`
+  margin-bottom: 50px;
+  font-size: 13px;
+`;
+
 const SLink = styled(Link)`
   text-decoration: underline;
 `;
@@ -30,7 +35,7 @@ const PlacesPresenter: React.SFC<IProps> = ({
     <Header title={"Places"} backTo={"/"} />
     <Container>
       {!loading && places && places.length === 0 && (
-        <SLink to={"/add-place"}>Add your places 🏠</SLink>
+        <NoPlace>You have no place</NoPlace>
       )}
       {!loading &&
         places &&
@@ -42,6 +47,7 @@ const PlacesPresenter: React.SFC<IProps> = ({
             isFav={place!.isFav}
           />
         ))}
+      <SLink to={"/add-place"}>Add your places 🏠</SLink>
     </Container>
   </React.Fragment>
 );
