@@ -32,7 +32,7 @@ class HomeContainer extends React.Component<IProps, IState> {
     this.mapRef = React.createRef();
   }
   public componentDidMount() {
-    navigator.geolocation.watchPosition(
+    navigator.geolocation.getCurrentPosition(
       this.handleGeoSucces,
       this.handleGeoError
     );
@@ -105,7 +105,11 @@ class HomeContainer extends React.Component<IProps, IState> {
     );
   };
   public handleGeoWatchSuccess = (position: Position) => {
-    return;
+    const {
+      coords: { latitude, longitude }
+    } = position;
+    this.userMarker.setPosition({ lat: latitude, lng: longitude });
+    this.map.panTo({ lat: latitude, lng: longitude });
   };
   public handleGeoWatchError = () => {
     console.log("Error watching you");
