@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { RouteComponentProps } from "react-router-dom";
-import { geocode, reverseGeoCode } from "src/mapHelpers";
+import { geoCode, reverseGeoCode } from "../../mapHelpers";
 import FindAddressPresenter from "./FindAddressPresenter";
 
 interface IState {
@@ -26,14 +26,12 @@ class FindAddressContainer extends React.Component<IProps, IState> {
     super(props);
     this.mapRef = React.createRef();
   }
-
   public componentDidMount() {
     navigator.geolocation.getCurrentPosition(
-      this.handleGeoSuccess,
+      this.handleGeoSucces,
       this.handleGeoError
     );
   }
-
   public render() {
     const { address } = this.state;
     return (
@@ -46,11 +44,10 @@ class FindAddressContainer extends React.Component<IProps, IState> {
       />
     );
   }
-
-  public handleGeoSuccess: PositionCallback = position => {
+  public handleGeoSucces: PositionCallback = (positon: Position) => {
     const {
       coords: { latitude, longitude }
-    } = position;
+    } = positon;
     this.setState({
       lat: latitude,
       lng: longitude
@@ -58,23 +55,22 @@ class FindAddressContainer extends React.Component<IProps, IState> {
     this.loadMap(latitude, longitude);
     this.reverseGeocodeAddress(latitude, longitude);
   };
-
   public handleGeoError: PositionErrorCallback = () => {
     console.log("No location");
   };
-
   public loadMap = (lat, lng) => {
     const { google } = this.props;
     const maps = google.maps;
     const mapNode = ReactDOM.findDOMNode(this.mapRef.current);
-    const mapConfig = (google.maps.MapOptions = {
+    const mapConfig: google.maps.MapOptions = {
       center: {
         lat,
         lng
       },
+      disableDefaultUI: true,
       minZoom: 8,
-      zoom: 13
-    });
+      zoom: 11
+    };
     this.map = new maps.Map(mapNode, mapConfig);
     this.map.addListener("dragend", this.handleDragEnd);
   };
@@ -88,8 +84,7 @@ class FindAddressContainer extends React.Component<IProps, IState> {
     });
     this.reverseGeocodeAddress(lat, lng);
   };
-
-  public onInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
+  public onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value }
     } = event;
@@ -97,14 +92,13 @@ class FindAddressContainer extends React.Component<IProps, IState> {
       [name]: value
     } as any);
   };
-
   public onInputBlur = async () => {
     const { address } = this.state;
-    const result = await geocode(address);
+    const result = await geoCode(address);
     if (result !== false) {
-      const { lat, lng, formatted_address } = result;
+      const { lat, lng, formatted_address: formatedAddress } = result;
       this.setState({
-        address: formatted_address,
+        address: formatedAddress,
         lat,
         lng
       });
@@ -124,7 +118,11 @@ class FindAddressContainer extends React.Component<IProps, IState> {
     const { history } = this.props;
     history.push({
       pathname: "/add-place",
-      state: { address, lat, lng }
+      state: {
+        address,
+        lat,
+        lng
+      }
     });
   };
 }
