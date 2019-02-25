@@ -14,6 +14,7 @@ const Container = styled.div`
 
 const ExtendedInput = styled(Input)`
   margin-bottom: 40px;
+  font-size: 14px;
 `;
 
 const ExtendedLink = styled(Link)`
