@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { reverseGeoCode } from "src/mapHelpers";
+import { geocode, reverseGeoCode } from "src/mapHelpers";
 import FindAddressPresenter from "./FindAddressPresenter";
 
 interface IState {
@@ -92,8 +92,18 @@ class FindAddressContainer extends React.Component<any, IState> {
     } as any);
   };
 
-  public onInputBlur = () => {
-    console.log("Address updated");
+  public onInputBlur = async () => {
+    const { address } = this.state;
+    const result = await geocode(address);
+    if (result !== false) {
+      const { lat, lng, formatted_address } = result;
+      this.setState({
+        address: formatted_address,
+        lat,
+        lng
+      });
+      this.map.panTo({ lat, lng });
+    }
   };
   public reverseGeocodeAddress = async (lat: number, lng: number) => {
     const reversedAddress = await reverseGeoCode(lat, lng);
