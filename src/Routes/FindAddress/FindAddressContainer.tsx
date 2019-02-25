@@ -50,6 +50,7 @@ class FindAddressContainer extends React.Component<any, IState> {
       lng: longitude
     });
     this.loadMap(latitude, longitude);
+    this.reverseGeocodeAddress(latitude, longitude);
   };
 
   public handleGeoError = () => {
@@ -65,21 +66,21 @@ class FindAddressContainer extends React.Component<any, IState> {
         lat,
         lng
       },
+      minZoom: 8,
       zoom: 13
     });
     this.map = new maps.Map(mapNode, mapConfig);
     this.map.addListener("dragend", this.handleDragEnd);
   };
-  public handleDragEnd = async () => {
+  public handleDragEnd = () => {
     const newCenter = this.map.getCenter();
     const lat = newCenter.lat();
     const lng = newCenter.lng();
-    const reversedAddress = await reverseGeoCode(lat, lng);
     this.setState({
-      address: reversedAddress,
       lat,
       lng
     });
+    this.reverseGeocodeAddress(lat, lng);
   };
 
   public onInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
@@ -93,6 +94,14 @@ class FindAddressContainer extends React.Component<any, IState> {
 
   public onInputBlur = () => {
     console.log("Address updated");
+  };
+  public reverseGeocodeAddress = async (lat: number, lng: number) => {
+    const reversedAddress = await reverseGeoCode(lat, lng);
+    if (reversedAddress !== false) {
+      this.setState({
+        address: reversedAddress
+      });
+    }
   };
 }
 

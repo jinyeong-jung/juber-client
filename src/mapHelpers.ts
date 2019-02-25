@@ -8,9 +8,13 @@ export const reverseGeoCode = async (lat: number, lng: number) => {
   if (!data.error_message) {
     const { results } = data;
     const firstPlace = results[0];
+    if (!firstPlace) {
+      return false;
+    }
     const address = firstPlace.formatted_address;
     return address;
   } else {
     toast.error(data.error_message);
+    return false;
   }
 };
