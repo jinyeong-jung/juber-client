@@ -2,6 +2,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import ReactDOM from "react-dom";
 import { RouteComponentProps } from "react-router-dom";
+import { toast } from "react-toastify";
 import { geoCode } from "src/mapHelpers";
 import { USER_PROFILE } from "../../sharedQueries";
 import { userProfile } from "../../types/api";
@@ -14,8 +15,9 @@ interface IState {
   toAddress: string;
   toLat: number;
   toLng: number;
-  distance?: string;
+  distance?: number;
   duration?: string;
+  price?: number;
 }
 
 interface IProps extends RouteComponentProps<any> {
@@ -31,9 +33,11 @@ class HomeContainer extends React.Component<IProps, IState> {
   public toMarker: google.maps.Marker;
   public directions: google.maps.DirectionsRenderer;
   public state = {
+    distance: 0,
     isMenuOpen: false,
     lat: 0,
     lng: 0,
+    price: undefined,
     toAddress: "",
     toLat: 0,
     toLng: 0
@@ -49,7 +53,7 @@ class HomeContainer extends React.Component<IProps, IState> {
     );
   }
   public render() {
-    const { isMenuOpen, toAddress } = this.state;
+    const { isMenuOpen, toAddress, price } = this.state;
     return (
       <ProfileQuery query={USER_PROFILE}>
         {({ loading }) => (
@@ -61,6 +65,7 @@ class HomeContainer extends React.Component<IProps, IState> {
             toAddress={toAddress}
             onInputChange={this.onInputChange}
             onAddressSubmit={this.onAddressSubmit}
+            price={price}
           />
         )}
       </ProfileQuery>
@@ -197,16 +202,27 @@ class HomeContainer extends React.Component<IProps, IState> {
     if (result.status === "OK") {
       const { routes } = result;
       const {
-        distance: { text: distance },
+        distance: { value: distance },
         duration: { text: duration }
       } = routes[0].legs[0];
-      this.setState({
-        distance,
-        duration
-      });
       this.directions.setDirections(result);
       this.directions.setMap(this.map);
+      this.setState(
+        {
+          distance,
+          duration
+        },
+        this.setPrice
+      );
+    } else {
+      toast.error("There is no route.");
     }
+  };
+  public setPrice = () => {
+    const { distance } = this.state;
+    this.setState({
+      price: Number((2.25 + distance * 0.00086).toFixed(2))
+    });
   };
 }
 
