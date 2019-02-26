@@ -23,7 +23,7 @@ interface IProps {
   value: string;
   name: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur: () => void;
+  onBlur: any;
 }
 
 const AddressBar: React.SFC<IProps> = ({ value, name, onChange, onBlur }) => {
@@ -34,6 +34,7 @@ const AddressBar: React.SFC<IProps> = ({ value, name, onChange, onBlur }) => {
       name={name}
       onChange={onChange}
       onBlur={onBlur}
+      onSubmit={onBlur}
     />
   );
 };
