@@ -6,12 +6,13 @@ import { toast } from "react-toastify";
 import { geoCode } from "src/mapHelpers";
 import { USER_PROFILE } from "../../sharedQueries";
 import {
+  getDrivers,
   reportMovement,
   reportMovementVariables,
   userProfile
 } from "../../types/api";
 import HomePresenter from "./HomePresenter";
-import { REPORT_MOVEMENT } from "./HomeQueries";
+import { GET_NEARBY_DRIVERS, REPORT_MOVEMENT } from "./HomeQueries";
 
 interface IState {
   isMenuOpen: boolean;
@@ -31,6 +32,7 @@ interface IProps extends RouteComponentProps<any> {
 }
 
 class ProfileQuery extends Query<userProfile> {}
+class NearbyQuery extends Query<getDrivers> {}
 
 class HomeContainer extends React.Component<IProps, IState> {
   public mapRef: any;
@@ -62,17 +64,22 @@ class HomeContainer extends React.Component<IProps, IState> {
     const { isMenuOpen, toAddress, price } = this.state;
     return (
       <ProfileQuery query={USER_PROFILE}>
-        {({ loading }) => (
-          <HomePresenter
-            loading={loading}
-            isMenuOpen={isMenuOpen}
-            toggleMenu={this.toggleMenu}
-            mapRef={this.mapRef}
-            toAddress={toAddress}
-            onInputChange={this.onInputChange}
-            onAddressSubmit={this.onAddressSubmit}
-            price={price}
-          />
+        {({ data, loading }) => (
+          <NearbyQuery query={GET_NEARBY_DRIVERS}>
+            {() => (
+              <HomePresenter
+                loading={loading}
+                isMenuOpen={isMenuOpen}
+                toggleMenu={this.toggleMenu}
+                mapRef={this.mapRef}
+                toAddress={toAddress}
+                onInputChange={this.onInputChange}
+                onAddressSubmit={this.onAddressSubmit}
+                price={price}
+                data={data}
+              />
+            )}
+          </NearbyQuery>
         )}
       </ProfileQuery>
     );
