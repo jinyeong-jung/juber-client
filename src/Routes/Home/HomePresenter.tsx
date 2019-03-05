@@ -4,7 +4,7 @@ import Helmet from "react-helmet";
 import Sidebar from "react-sidebar";
 import AddressBar from "src/Components/AddressBar";
 import Button from "src/Components/Button";
-import { userProfile } from "src/types/api";
+import { getNearbyRide, userProfile } from "src/types/api";
 import Menu from "../../Components/Menu";
 import styled from "../../typed-components";
 
@@ -58,6 +58,7 @@ interface IProps {
   price?: number;
   data?: userProfile;
   requestRideFn?: MutationFn;
+  nearbyRide?: getNearbyRide;
 }
 
 const HomePresenter: React.SFC<IProps> = ({
