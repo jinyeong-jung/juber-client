@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { geoCode, reverseGeoCode } from "src/mapHelpers";
 import { USER_PROFILE } from "../../sharedQueries";
 import {
+  acceptRide,
+  acceptRideVariables,
   getDrivers,
   getNearbyRide,
   reportMovement,
@@ -16,6 +18,7 @@ import {
 } from "../../types/api";
 import HomePresenter from "./HomePresenter";
 import {
+  ACCEPT_RIDE,
   GET_NEARBY_DRIVERS,
   GET_NEARBY_RIDE,
   REPORT_MOVEMENT,
@@ -45,6 +48,7 @@ class ProfileQuery extends Query<userProfile> {}
 class NearbyQuery extends Query<getDrivers> {}
 class RequestRideMutation extends Mutation<requestRide, requestRideVariables> {}
 class GetNearbyRides extends Query<getNearbyRide> {}
+class AcceptRide extends Mutation<acceptRide, acceptRideVariables> {}
 
 class HomeContainer extends React.Component<IProps, IState> {
   public mapRef: any;
@@ -119,19 +123,24 @@ class HomeContainer extends React.Component<IProps, IState> {
                 {requestRideFn => (
                   <GetNearbyRides query={GET_NEARBY_RIDE} skip={!isDriving}>
                     {({ data: nearbyRide }) => (
-                      <HomePresenter
-                        loading={loading}
-                        isMenuOpen={isMenuOpen}
-                        toggleMenu={this.toggleMenu}
-                        mapRef={this.mapRef}
-                        toAddress={toAddress}
-                        onInputChange={this.onInputChange}
-                        onAddressSubmit={this.onAddressSubmit}
-                        price={price}
-                        data={data}
-                        requestRideFn={requestRideFn}
-                        nearbyRide={nearbyRide}
-                      />
+                      <AcceptRide mutation={ACCEPT_RIDE}>
+                        {acceptRideFn => (
+                          <HomePresenter
+                            loading={loading}
+                            isMenuOpen={isMenuOpen}
+                            toggleMenu={this.toggleMenu}
+                            mapRef={this.mapRef}
+                            toAddress={toAddress}
+                            onInputChange={this.onInputChange}
+                            onAddressSubmit={this.onAddressSubmit}
+                            price={price}
+                            data={data}
+                            requestRideFn={requestRideFn}
+                            nearbyRide={nearbyRide}
+                            acceptRideFn={acceptRideFn}
+                          />
+                        )}
+                      </AcceptRide>
                     )}
                   </GetNearbyRides>
                 )}
@@ -372,7 +381,6 @@ class HomeContainer extends React.Component<IProps, IState> {
   };
   public handleRideRequest = (data: requestRide) => {
     const { RequestRide } = data;
-    console.log(data);
     if (RequestRide.ok) {
       toast.success("Drive requested! Finding a driver..");
     } else {

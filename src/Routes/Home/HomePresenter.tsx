@@ -4,6 +4,7 @@ import Helmet from "react-helmet";
 import Sidebar from "react-sidebar";
 import AddressBar from "src/Components/AddressBar";
 import Button from "src/Components/Button";
+import RidePopUp from "src/Components/RidePopUp";
 import { getNearbyRide, userProfile } from "src/types/api";
 import Menu from "../../Components/Menu";
 import styled from "../../typed-components";
@@ -59,6 +60,7 @@ interface IProps {
   data?: userProfile;
   requestRideFn?: MutationFn;
   nearbyRide?: getNearbyRide;
+  acceptRideFn?: MutationFn;
 }
 
 const HomePresenter: React.SFC<IProps> = ({
@@ -71,7 +73,9 @@ const HomePresenter: React.SFC<IProps> = ({
   onAddressSubmit,
   price,
   data: { GetMyProfile: { user = null } = {} } = {},
-  requestRideFn
+  requestRideFn,
+  nearbyRide: { GetNearbyRide: { ride = null } = {} } = {},
+  acceptRideFn
 }) => {
   return (
     <Container>
@@ -112,6 +116,19 @@ const HomePresenter: React.SFC<IProps> = ({
             onClick={requestRideFn}
             disabled={toAddress === ""}
             value={`Request Ride ($${price})`}
+          />
+        )}
+
+        {ride && (
+          <RidePopUp
+            pickUpAddress={ride.pickUpAddress}
+            dropOffAddress={ride.dropOffAddress}
+            price={ride.price}
+            distance={ride.distance}
+            passengerName={ride.passenger.fullName!}
+            passengerPhoto={ride.passenger.profilePhoto!}
+            acceptRideFn={acceptRideFn}
+            id={ride.id}
           />
         )}
 
