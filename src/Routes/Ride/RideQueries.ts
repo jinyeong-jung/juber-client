@@ -28,3 +28,38 @@ export const GET_RIDE = gql`
     }
   }
 `;
+
+export const UPDATE_RIDE_STATUS = gql`
+  mutation updateRide($rideId: Int!, $status: statusOptions!) {
+    UpdateRideStatus(rideId: $rideId, status: $status) {
+      ok
+      error
+      rideId
+    }
+  }
+`;
+
+export const RIDE_SUBSCRIPTION = gql`
+  subscription rideUpdates {
+    RideStatusSubscription {
+      id
+      status
+      pickUpAddress
+      dropOffAddress
+      price
+      distance
+      duration
+      driver {
+        id
+        fullName
+        profilePhoto
+      }
+      passenger {
+        id
+        fullName
+        profilePhoto
+      }
+      chatId
+    }
+  }
+`;

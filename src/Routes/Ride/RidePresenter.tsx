@@ -1,4 +1,5 @@
 import React from "react";
+import { MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
 import Button from "src/Components/Button";
 import styled from "../../typed-components";
@@ -39,19 +40,21 @@ const Buttons = styled.div`
 `;
 
 const ExtendedButton = styled(Button)`
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
 
 interface IProps {
   data?: getRide;
   userData?: userProfile;
   loading: boolean;
+  updateRideFn: MutationFn;
 }
 
 const RidePresenter: React.SFC<IProps> = ({
   data: { GetRide: { ride = null } = {} } = {},
   userData: { GetMyProfile: { user = null } = {} } = {},
-  loading
+  loading,
+  updateRideFn
 }) => (
   <Container>
     {ride && user && (
@@ -83,18 +86,41 @@ const RidePresenter: React.SFC<IProps> = ({
         <Title>Status</Title>
         <Data>{ride.status}</Data>
         <Buttons>
-          {ride.driver.id === user.id && ride.status === "ACCEPTED" && (
-            <ExtendedButton value={"Picked Up"} onClick={null} />
+          {ride.driver &&
+            ride.driver.id === user.id &&
+            ride.status === "ACCEPTED" && (
+              <ExtendedButton
+                value={"Picked Up"}
+                onClick={() =>
+                  updateRideFn({
+                    variables: {
+                      rideId: ride.id,
+                      status: "ONROUTE"
+                    }
+                  })
+                }
+              />
+            )}
+          {ride.driver &&
+            ride.driver.id === user.id &&
+            ride.status === "ONROUTE" && (
+              <ExtendedButton
+                value={"Finished"}
+                onClick={() =>
+                  updateRideFn({
+                    variables: {
+                      rideId: ride.id,
+                      status: "FINISHED"
+                    }
+                  })
+                }
+              />
+            )}
+          {ride.status !== "REQUESTING" && (
+            <Link to={`/chat/${ride.chatId}`}>
+              <ExtendedButton value={"Chat"} onClick={null} />
+            </Link>
           )}
-          {ride.driver.id === user.id && ride.status === "ONROUTE" && (
-            <ExtendedButton value={"Finished"} onClick={null} />
-          )}
-          {ride.driver.id === user.id ||
-            (ride.passenger.id === user.id && ride.status === "ACCEPTED" && (
-              <Link to={`/chat/${ride.chatId}`}>
-                <ExtendedButton value={"Chat"} onClick={null} />
-              </Link>
-            ))}
         </Buttons>
       </React.Fragment>
     )}
