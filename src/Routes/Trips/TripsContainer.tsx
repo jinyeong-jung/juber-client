@@ -14,13 +14,16 @@ class TripsContainer extends React.Component {
       <ProfileQuery query={USER_PROFILE}>
         {({ data: userData }) => (
           <RideHistoryQuery query={RIDE_HISTORY}>
-            {({ data, loading }) => (
-              <TripsPresenter
-                userData={userData}
-                data={data}
-                loading={loading}
-              />
-            )}
+            {({ data, loading }) => {
+              console.log(data);
+              return (
+                <TripsPresenter
+                  userData={userData}
+                  data={data}
+                  loading={loading}
+                />
+              );
+            }}
           </RideHistoryQuery>
         )}
       </ProfileQuery>

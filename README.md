@@ -21,5 +21,5 @@ Client for the (J)Uber clone project made with ReactJS, Apollo, and Typescript.
 - [x] Places
 - [x] Add Place
 - [x] Find Address
-- [ ] Challenge: Ride History
+- [x] Challenge: Ride History
 - [ ] Challenge: Email Sign In

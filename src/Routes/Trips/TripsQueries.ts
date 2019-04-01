@@ -13,6 +13,7 @@ export const RIDE_HISTORY = gql`
         distance
         duration
         driverId
+        createdAt
       }
     }
   }

@@ -13,6 +13,26 @@ const Driver = styled.div`
   line-height: 300px;
 `;
 
+const Wrap = styled.div`
+  background-color: #eee;
+  margin-bottom: 10px;
+  padding: 20px;
+  border-radius: 10px;
+`;
+
+const Title = styled.div`
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+`;
+
+const Data = styled.span`
+  display: flex;
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: ${props => props.theme.blueColor};
+`;
+
 interface IProps {
   userData?: userProfile;
   data?: getRideHistory;
@@ -21,16 +41,33 @@ interface IProps {
 
 const TripsPresenter: React.SFC<IProps> = ({
   userData: { GetMyProfile: { user = null } = {} } = {},
-  data: { GetRideHistory: { rides = null } = {} } = {}
+  data
 }) => (
   <React.Fragment>
     <Header title={"Trips : Ride History"} backTo={"/"} />
     <Container>
-      {user && user.isDriving ? (
+      {user && user.isDriving && (
         <Driver>This page is only for passenger :(</Driver>
-      ) : (
-        "Trips"
       )}
+      {data &&
+        data.GetRideHistory &&
+        data.GetRideHistory.rides &&
+        data.GetRideHistory.rides.map(ride => (
+          <React.Fragment key={ride!.id}>
+            <Wrap>
+              <Title>Date (Unix Timestamp)</Title>
+              <Data>{ride!.createdAt}</Data>
+              <Title>From</Title>
+              <Data>{ride!.pickUpAddress}</Data>
+              <Title>To</Title>
+              <Data>{ride!.dropOffAddress}</Data>
+              <Title>Price</Title>
+              <Data>${ride!.price}</Data>
+              <Title>Duration</Title>
+              <Data>{ride!.duration}</Data>
+            </Wrap>
+          </React.Fragment>
+        ))}
     </Container>
   </React.Fragment>
 );

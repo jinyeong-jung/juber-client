@@ -507,6 +507,7 @@ export interface getRideHistory_GetRideHistory_rides {
   distance: string;
   duration: string;
   driverId: number | null;
+  createdAt: string;
 }
 
 export interface getRideHistory_GetRideHistory {
