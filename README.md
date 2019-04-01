@@ -14,8 +14,8 @@ Client for the (J)Uber clone project made with ReactJS, Apollo, and Typescript.
 ### Logged In:
 
 - [x] Home
-- [ ] Ride
-- [ ] Chat
+- [x] Ride
+- [x] Chat
 - [x] Edit Account
 - [x] Settings
 - [x] Places
