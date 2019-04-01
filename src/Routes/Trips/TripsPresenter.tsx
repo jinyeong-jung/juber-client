@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "src/Components/Header";
-import { userProfile } from "src/types/api";
+import { getRideHistory, userProfile } from "src/types/api";
 import styled from "../../typed-components";
 
 const Container = styled.div`
@@ -15,10 +15,13 @@ const Driver = styled.div`
 
 interface IProps {
   userData?: userProfile;
+  data?: getRideHistory;
+  loading: boolean;
 }
 
 const TripsPresenter: React.SFC<IProps> = ({
-  userData: { GetMyProfile: { user = null } = {} } = {}
+  userData: { GetMyProfile: { user = null } = {} } = {},
+  data: { GetRideHistory: { rides = null } = {} } = {}
 }) => (
   <React.Fragment>
     <Header title={"Trips : Ride History"} backTo={"/"} />

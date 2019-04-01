@@ -384,7 +384,7 @@ export interface getRide_GetRide_ride {
   price: number;
   distance: string;
   duration: string;
-  driver: getRide_GetRide_ride_driver;
+  driver: getRide_GetRide_ride_driver | null;
   passenger: getRide_GetRide_ride_passenger;
   chatId: number | null;
 }
@@ -457,7 +457,7 @@ export interface rideUpdates_RideStatusSubscription {
   price: number;
   distance: string;
   duration: string;
-  driver: rideUpdates_RideStatusSubscription_driver;
+  driver: rideUpdates_RideStatusSubscription_driver | null;
   passenger: rideUpdates_RideStatusSubscription_passenger;
   chatId: number | null;
 }
@@ -489,6 +489,35 @@ export interface facebookConnectVariables {
   lastName: string;
   email?: string | null;
   fbId: string;
+}
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: getRideHistory
+// ====================================================
+
+export interface getRideHistory_GetRideHistory_rides {
+  __typename: "Ride";
+  id: number;
+  pickUpAddress: string;
+  dropOffAddress: string;
+  price: number;
+  distance: string;
+  duration: string;
+  driverId: number | null;
+}
+
+export interface getRideHistory_GetRideHistory {
+  __typename: "GetRideHistoryResponse";
+  ok: boolean;
+  error: string | null;
+  rides: (getRideHistory_GetRideHistory_rides | null)[] | null;
+}
+
+export interface getRideHistory {
+  GetRideHistory: getRideHistory_GetRideHistory;
 }
 
 /* tslint:disable */
