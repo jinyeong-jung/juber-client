@@ -12,6 +12,7 @@ import Places from "../../Routes/Places";
 import Ride from "../../Routes/Ride";
 import Settings from "../../Routes/Settings";
 import SocialLogin from "../../Routes/SocialLogin";
+import Trips from "../../Routes/Trips";
 import VerifyPhone from "../../Routes/VerifyPhone";
 
 interface IProps {
@@ -39,6 +40,7 @@ const LoggedInRoutes: React.SFC = () => (
     <Route path={"/"} exact={true} component={Home} />
     <Route path={"/ride/:rideId"} exact={true} component={Ride} />
     <Route path={"/chat/:chatId"} exact={true} component={Chat} />
+    <Route path={"/trips"} exact={true} component={Trips} />
     <Route path={"/edit-account"} exact={true} component={EditAccount} />
     <Route path={"/settings"} exact={true} component={Settings} />
     <Route path={"/places"} exact={true} component={Places} />
