@@ -8,6 +8,9 @@ import { WebSocketLink } from "apollo-link-ws";
 import { getMainDefinition } from "apollo-utilities";
 import { toast } from "react-toastify";
 
+const isDev = process.env.NODE_ENV === "development";
+console.log(isDev);
+
 const cache = new InMemoryCache();
 
 const getToken = () => {
@@ -35,11 +38,15 @@ const wsLink = new WebSocketLink({
     },
     reconnect: true
   },
-  uri: "ws://localhost:4000/subscription"
+  uri: isDev
+    ? "ws://localhost:4000/subscription"
+    : "wss://juber.herokuapp.com/subscription"
 });
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql"
+  uri: isDev
+    ? "http://localhost:4000/graphql"
+    : "https://juber.herokuapp.com/graphql"
 });
 
 const combinedLinks = split(
