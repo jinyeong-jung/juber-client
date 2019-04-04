@@ -27,26 +27,34 @@ const AppPresenter: React.SFC<IProps> = ({ isLoggedIn }) => (
 
 const LoggedOutRoutes: React.SFC = () => (
   <Switch>
-    <Route path={"/"} exact={true} component={Login} />
-    <Route path={"/phone-login"} component={PhoneLogin} />
-    <Route path={"/verify-phone"} component={VerifyPhone} />
-    <Route path={"/social-login"} component={SocialLogin} />
-    <Redirect from={"*"} to={"/"} />
+    <Route path={"/juber-client"} exact={true} component={Login} />
+    <Route path={"/juber-client/phone-login"} component={PhoneLogin} />
+    <Route path={"/juber-client/verify-phone"} component={VerifyPhone} />
+    <Route path={"/juber-client/social-login"} component={SocialLogin} />
+    <Redirect from={"*"} to={"/juber-client/"} />
   </Switch>
 );
 
 const LoggedInRoutes: React.SFC = () => (
   <Switch>
-    <Route path={""} exact={true} component={Home} />
-    <Route path={"/ride/:rideId"} exact={true} component={Ride} />
-    <Route path={"/chat/:chatId"} exact={true} component={Chat} />
-    <Route path={"/trips"} exact={true} component={Trips} />
-    <Route path={"/edit-account"} exact={true} component={EditAccount} />
-    <Route path={"/settings"} exact={true} component={Settings} />
-    <Route path={"/places"} exact={true} component={Places} />
-    <Route path={"/add-place"} exact={true} component={AddPlace} />
-    <Route path={"/find-address"} exact={true} component={FindAddress} />
-    <Redirect from={"*"} to={"/"} />
+    <Route path={"/juber-client"} exact={true} component={Home} />
+    <Route path={"/juber-client/ride/:rideId"} exact={true} component={Ride} />
+    <Route path={"/juber-client/chat/:chatId"} exact={true} component={Chat} />
+    <Route path={"/juber-client/trips"} exact={true} component={Trips} />
+    <Route
+      path={"/juber-client/edit-account"}
+      exact={true}
+      component={EditAccount}
+    />
+    <Route path={"/juber-client/settings"} exact={true} component={Settings} />
+    <Route path={"/juber-client/places"} exact={true} component={Places} />
+    <Route path={"/juber-client/add-place"} exact={true} component={AddPlace} />
+    <Route
+      path={"/juber-client/find-address"}
+      exact={true}
+      component={FindAddress}
+    />
+    <Redirect from={"*"} to={"/juber-client/"} />
   </Switch>
 );
 
