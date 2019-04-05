@@ -7,12 +7,6 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-const Driver = styled.div`
-  text-align: center;
-  height: 300px;
-  line-height: 300px;
-`;
-
 const Wrap = styled.div`
   background-color: #eee;
   margin-bottom: 10px;
@@ -44,17 +38,15 @@ const TripsPresenter: React.SFC<IProps> = ({
   data
 }) => (
   <React.Fragment>
-    <Header title={"Trips : Ride History"} backTo={"/"} />
+    <Header title={"Trips : Ride History"} backTo={"/juber-client"} />
     <Container>
-      {user && user.isDriving && (
-        <Driver>This page is only for passenger :(</Driver>
-      )}
       {data &&
         data.GetRideHistory &&
         data.GetRideHistory.rides &&
         data.GetRideHistory.rides.map(ride => (
           <React.Fragment key={ride!.id}>
             <Wrap>
+              <Title>[{ride!.id}]</Title>
               <Title>Date (Unix Timestamp)</Title>
               <Data>{ride!.createdAt}</Data>
               <Title>From</Title>

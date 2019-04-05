@@ -2,6 +2,7 @@ import React from "react";
 import { MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
 import Button from "src/Components/Button";
+import Header from "src/Components/Header";
 import styled from "../../typed-components";
 import { getRide, userProfile } from "../../types/api";
 
@@ -59,6 +60,7 @@ const RidePresenter: React.SFC<IProps> = ({
   <Container>
     {ride && user && (
       <React.Fragment>
+        <Header title={"Home"} backTo={"/juber-client"} />
         <Title>Passenger</Title>
         <Passenger>
           <Img src={ride.passenger.profilePhoto} />
@@ -117,7 +119,7 @@ const RidePresenter: React.SFC<IProps> = ({
               />
             )}
           {ride.status !== "REQUESTING" && (
-            <Link to={`/chat/${ride.chatId}`}>
+            <Link to={`/juber-client/chat/${ride.chatId}`}>
               <ExtendedButton value={"Chat"} onClick={null} />
             </Link>
           )}

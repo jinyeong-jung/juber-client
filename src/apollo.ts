@@ -9,7 +9,6 @@ import { getMainDefinition } from "apollo-utilities";
 import { toast } from "react-toastify";
 
 const isDev = process.env.NODE_ENV === "development";
-console.log(isDev);
 
 const cache = new InMemoryCache();
 

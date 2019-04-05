@@ -409,7 +409,7 @@ class HomeContainer extends React.Component<IProps, IState> {
     const { RequestRide } = data;
     if (RequestRide.ok) {
       toast.success("Drive requested! Finding a driver..");
-      history.push(`/ride/${RequestRide.ride!.id}`);
+      history.push(`/juber-client/ride/${RequestRide.ride!.id}`);
     } else {
       toast.error(RequestRide.error);
     }
@@ -418,7 +418,7 @@ class HomeContainer extends React.Component<IProps, IState> {
     const { history } = this.props;
     const { UpdateRideStatus } = data;
     if (UpdateRideStatus.ok) {
-      history.push(`/ride/${UpdateRideStatus.rideId}`);
+      history.push(`/juber-client/ride/${UpdateRideStatus.rideId}`);
     }
   };
 }

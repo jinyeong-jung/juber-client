@@ -67,9 +67,9 @@ const SettingsPresenter: React.SFC<IProps> = ({
     <Helmet>
       <title>Settings | Juber</title>
     </Helmet>
-    <Header title={"Account Settings"} backTo={"/"} />
+    <Header title={"Account Settings"} backTo={"/juber-client"} />
     <Container>
-      <GridLink to={"/edit-account"}>
+      <GridLink to={"/juber-client/edit-account"}>
         {!userDataLoading && user && (
           <React.Fragment>
             <Image src={user.profilePhoto} />
@@ -91,7 +91,7 @@ const SettingsPresenter: React.SFC<IProps> = ({
             isFav={place!.isFav}
           />
         ))}
-      <SLink to={"/places"}>Go to Places</SLink>
+      <SLink to={"/juber-client/places"}>Go to Places</SLink>
       <FakeLink onClick={logUserOut}>Log Out</FakeLink>
     </Container>
   </React.Fragment>

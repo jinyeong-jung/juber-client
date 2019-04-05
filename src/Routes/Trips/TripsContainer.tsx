@@ -15,7 +15,6 @@ class TripsContainer extends React.Component {
         {({ data: userData }) => (
           <RideHistoryQuery query={RIDE_HISTORY}>
             {({ data, loading }) => {
-              console.log(data);
               return (
                 <TripsPresenter
                   userData={userData}

@@ -46,7 +46,7 @@ const AddPlacePresenter: React.SFC<IProps> = ({
     <Helmet>
       <title>Add Place | Juber</title>
     </Helmet>
-    <Header title={"Add Place"} backTo={"/"} />
+    <Header title={"Add Place"} backTo={"/juber-client"} />
     <Container>
       <Form submitFn={onSubmit}>
         <ExtendedInput
@@ -63,7 +63,7 @@ const AddPlacePresenter: React.SFC<IProps> = ({
           name={"address"}
           onChange={onInputChange}
         />
-        <ExtendedLink to={"/find-address"}>
+        <ExtendedLink to={"/juber-client/find-address"}>
           Pick place from this map
         </ExtendedLink>
         {pickedAddress && (

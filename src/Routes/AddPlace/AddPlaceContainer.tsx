@@ -42,7 +42,7 @@ class AddPlaceContainer extends React.Component<IProps, IState> {
           if (AddPlace.ok) {
             toast.success("Place added!");
             setTimeout(() => {
-              history.push("/places");
+              history.push("/juber-client/places");
             }, 2000);
           } else {
             toast.error(AddPlace.error);

@@ -29,7 +29,8 @@ class FindAddressContainer extends React.Component<IProps, IState> {
   public componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       this.handleGeoSucces,
-      this.handleGeoError
+      this.handleGeoError,
+      { maximumAge: Infinity, timeout: 5000, enableHighAccuracy: true }
     );
   }
   public render() {
@@ -117,7 +118,7 @@ class FindAddressContainer extends React.Component<IProps, IState> {
     const { address, lat, lng } = this.state;
     const { history } = this.props;
     history.push({
-      pathname: "/add-place",
+      pathname: "/juber-client/add-place",
       state: {
         address,
         lat,

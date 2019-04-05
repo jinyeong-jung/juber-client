@@ -91,7 +91,7 @@ const MenuPresenter: React.SFC<IProps> = ({
       <React.Fragment>
         <Header>
           <Grid>
-            <Link to={"/edit-account"}>
+            <Link to={"/juber-client/edit-account"}>
               <Image
                 src={
                   user.profilePhoto ||
@@ -105,8 +105,8 @@ const MenuPresenter: React.SFC<IProps> = ({
             </Text>
           </Grid>
         </Header>
-        <SLink to="/trips">Your Trips</SLink>
-        <SLink to="/settings">Settings</SLink>
+        <SLink to="/juber-client/trips">Your Trips</SLink>
+        <SLink to="/juber-client/settings">Settings</SLink>
         <ToggleDriving isDriving={user.isDriving} onClick={toggleDrivingFn}>
           {user.isDriving ? "Stop driving" : "Start driving"}
         </ToggleDriving>

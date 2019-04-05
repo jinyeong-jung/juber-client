@@ -45,7 +45,7 @@ class PhoneLoginContainer extends React.Component<
             toast.success("SMS Sent! Please Verify Your Phone.");
             setTimeout(() => {
               history.push({
-                pathname: "/verify-phone",
+                pathname: "/juber-client/verify-phone",
                 state: {
                   phone
                 }

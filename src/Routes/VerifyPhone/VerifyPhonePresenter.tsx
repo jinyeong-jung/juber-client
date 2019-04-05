@@ -34,7 +34,10 @@ const VerifyPhonePresenter: React.SFC<IProps> = ({
     <Helmet>
       <title>Verify Phone | Juber</title>
     </Helmet>
-    <Header title={"Verify Phone Number"} backTo={"/phone-login"} />
+    <Header
+      title={"Verify Phone Number"}
+      backTo={"/juber-client/phone-login"}
+    />
     <ExtendedForm submitFn={onSubmit}>
       <ExtendedInput
         value={verificationKey}

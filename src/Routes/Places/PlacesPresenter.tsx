@@ -32,7 +32,7 @@ const PlacesPresenter: React.SFC<IProps> = ({
     <Helmet>
       <title>Places | Juber</title>
     </Helmet>
-    <Header title={"Places"} backTo={"/"} />
+    <Header title={"Places"} backTo={"/juber-client"} />
     <Container>
       {!loading && places && places.length === 0 && (
         <NoPlace>You have no place</NoPlace>
@@ -48,7 +48,7 @@ const PlacesPresenter: React.SFC<IProps> = ({
             isFav={place!.isFav}
           />
         ))}
-      <SLink to={"/add-place"}>Add your places 🏠</SLink>
+      <SLink to={"/juber-client/add-place"}>Add your places 🏠</SLink>
     </Container>
   </React.Fragment>
 );

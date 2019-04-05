@@ -23,7 +23,7 @@ class RideContainer extends React.Component<IProps> {
   constructor(props: IProps) {
     super(props);
     if (!props.match.params.rideId) {
-      props.history.push("/");
+      props.history.push("/juber-client");
     }
   }
   public render() {
@@ -49,7 +49,7 @@ class RideContainer extends React.Component<IProps> {
                     }
                   } = subscriptionData;
                   if (status === "FINISHED") {
-                    window.location.href = "/";
+                    window.location.href = "/juber-client";
                   }
                 }
               };

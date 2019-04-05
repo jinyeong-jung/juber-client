@@ -20,7 +20,7 @@ class VerifyPhoneContainer extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     if (!props.location.state) {
-      props.history.push("/");
+      props.history.push("/juber-client");
     }
     this.state = {
       phoneNumber: props.location.state.phone,

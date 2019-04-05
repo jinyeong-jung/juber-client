@@ -75,7 +75,7 @@ const PhoneLoginPresenter: React.SFC<IProps> = ({
     <Helmet>
       <title>Phone Login | Juber</title>
     </Helmet>
-    <BackArrowExtended backTo={"/"} />
+    <BackArrowExtended backTo={"/juber-client"} />
     <Title>Enter your mobile number</Title>
     <CountrySelect
       value={countryCode}
