@@ -55,6 +55,9 @@ class EditAccountContainer extends React.Component<IProps, IState> {
               const { UpdateMyProfile } = data;
               if (UpdateMyProfile.ok) {
                 toast.success("Profile updated!");
+                setTimeout(() => {
+                  window.location.href = "/juber-client";
+                }, 2000);
               } else if (UpdateMyProfile.error) {
                 toast.error(UpdateMyProfile.error);
               }
