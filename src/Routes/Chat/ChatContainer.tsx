@@ -26,7 +26,7 @@ class ChatContainer extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     if (!props.match.params.chatId) {
-      props.history.push("/");
+      props.history.push("/juber-client");
     }
     this.state = {
       message: ""
@@ -60,10 +60,12 @@ class ChatContainer extends React.Component<IProps, IState> {
                     }
                   } = prev;
                   const newMessageId = MessageSubscription.id;
-                  const latestMessageId = messages[messages.length - 1].id;
 
-                  if (newMessageId === latestMessageId) {
-                    return;
+                  if (messages.length > 0) {
+                    const latestMessageId = messages[messages.length - 1].id;
+                    if (newMessageId === latestMessageId) {
+                      return;
+                    }
                   }
 
                   const newObject = Object.assign({}, prev, {
@@ -121,14 +123,14 @@ class ChatContainer extends React.Component<IProps, IState> {
       }
     } = this.props;
     if (message !== "") {
-      this.setState({
-        message: ""
-      });
       this.sendMessageFn({
         variables: {
           chatId: Number(chatId),
           text: message
         }
+      });
+      this.setState({
+        message: ""
       });
     }
   };

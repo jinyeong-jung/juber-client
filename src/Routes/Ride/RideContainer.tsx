@@ -56,14 +56,17 @@ class RideContainer extends React.Component<IProps> {
               subscribeToMore(subscribeOptions);
               return (
                 <RideUpdate mutation={UPDATE_RIDE_STATUS}>
-                  {updateRideFn => (
-                    <RidePresenter
-                      data={data}
-                      userData={userData}
-                      loading={loading}
-                      updateRideFn={updateRideFn}
-                    />
-                  )}
+                  {updateRideFn => {
+                    console.log(data);
+                    return (
+                      <RidePresenter
+                        data={data}
+                        userData={userData}
+                        loading={loading}
+                        updateRideFn={updateRideFn}
+                      />
+                    );
+                  }}
                 </RideUpdate>
               );
             }}
